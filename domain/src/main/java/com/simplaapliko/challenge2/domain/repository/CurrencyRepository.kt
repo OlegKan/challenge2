@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.domain.repository
+package com.simplaapliko.challenge2.domain.repository
 
-import com.simplaapliko.domain.model.Currency
+import com.simplaapliko.challenge2.domain.model.Currency
 import io.reactivex.Single
 
 interface CurrencyRepository {

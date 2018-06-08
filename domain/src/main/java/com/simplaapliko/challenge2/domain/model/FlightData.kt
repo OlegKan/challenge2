@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.domain.model
+package com.simplaapliko.challenge2.domain.model
 
-import java.util.*
+import java.util.Date
 
 data class FlightData(val datetime: Date, val airport: Airport)

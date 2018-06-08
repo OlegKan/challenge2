@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.domain.repository
+package com.simplaapliko.challenge2.domain.repository
 
-import com.simplaapliko.domain.model.Airline
+import com.simplaapliko.challenge2.domain.model.Airline
 import io.reactivex.Single
 
 interface AirlineRepository {

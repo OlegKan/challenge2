@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.domain.model
+package com.simplaapliko.challenge2.domain.model
 
 data class Flight(val airline: Airline, val flightData: FlightData)

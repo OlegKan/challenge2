@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.domain.repository
+package com.simplaapliko.challenge2.domain.repository
 
-import com.simplaapliko.domain.model.Hotel
+import com.simplaapliko.challenge2.domain.model.Hotel
 import io.reactivex.Single
 
 interface HotelRepository {

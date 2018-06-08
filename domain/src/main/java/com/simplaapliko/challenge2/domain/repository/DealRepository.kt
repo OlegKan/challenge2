@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.domain.repository
+package com.simplaapliko.challenge2.domain.repository
 
-import com.simplaapliko.domain.model.Deal
+import com.simplaapliko.challenge2.domain.model.Deal
 import io.reactivex.Single
 
 interface DealRepository {
