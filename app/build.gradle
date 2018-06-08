@@ -17,6 +17,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 def versionMajor = 0
 def versionMinor = 1
@@ -66,6 +67,10 @@ dependencies {
     implementation deps.support.cardview
     implementation deps.support.compat
     implementation deps.support.design
+
+    implementation deps.dagger.dagger
+    kapt deps.dagger.compiler
+    compileOnly deps.javaxannotation
 
     testImplementation deps.test.junit
 }
