@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
-include ':app', ':data', ':domain'
+package com.simplaapliko.domain.repository
+
+import com.simplaapliko.domain.model.Hotel
+import io.reactivex.Single
+
+interface HotelRepository {
+
+    fun get(id: String): Single<Hotel>
+}

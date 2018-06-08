@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
-include ':app', ':data', ':domain'
+package com.simplaapliko.domain.model
+
+data class Airline(val id: String, val name: String, val imageUrl: String)

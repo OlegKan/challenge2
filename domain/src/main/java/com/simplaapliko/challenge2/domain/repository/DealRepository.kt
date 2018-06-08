@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
-include ':app', ':data', ':domain'
+package com.simplaapliko.domain.repository
+
+import com.simplaapliko.domain.model.Deal
+import io.reactivex.Single
+
+interface DealRepository {
+
+    fun getAll(): Single<List<Deal>>
+}

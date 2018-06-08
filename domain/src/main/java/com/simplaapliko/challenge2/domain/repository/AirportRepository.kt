@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
-include ':app', ':data', ':domain'
+package com.simplaapliko.domain.repository
+
+import com.simplaapliko.domain.model.Airport
+import io.reactivex.Single
+
+interface AirportRepository {
+
+    fun get(id: String): Single<Airport>
+}

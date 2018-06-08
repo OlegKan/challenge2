@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
-include ':app', ':data', ':domain'
+package com.simplaapliko.domain.model
+
+data class Deal(val price: Double, val flights: Flights, val lodging: Lodging)

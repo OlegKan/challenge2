@@ -14,4 +14,11 @@
  * limitations under the License.
  */
 
-include ':app', ':data', ':domain'
+package com.simplaapliko.domain.repository
+
+import com.simplaapliko.domain.model.Currency
+
+interface SettingsRepository {
+
+    fun setPreferredCurrency(currency: Currency)
+}
