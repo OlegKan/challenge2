@@ -66,6 +66,7 @@ dependencies {
     implementation deps.support.annotations
     implementation deps.support.cardview
     implementation deps.support.compat
+    implementation deps.support.constraintLayout
     implementation deps.support.design
 
     implementation deps.dagger.dagger
@@ -73,6 +74,8 @@ dependencies {
     compileOnly deps.javaxannotation
 
     implementation deps.gson
+
+    implementation deps.picasso
 
     implementation deps.reactivex.rxbinding
     implementation deps.reactivex.rxjava2

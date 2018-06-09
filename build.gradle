@@ -63,6 +63,7 @@ buildscript {
                     annotations: "com.android.support:support-annotations:${versions.supportLibrary}",
                     cardview: "com.android.support:cardview-v7:${versions.supportLibrary}",
                     compat: "com.android.support:support-compat:${versions.supportLibrary}",
+                    constraintLayout: "com.android.support.constraint:constraint-layout:1.1.1",
                     design: "com.android.support:design:${versions.supportLibrary}",
             ],
             test: [

@@ -18,6 +18,8 @@ package com.simplaapliko.challenge2.data.datasource.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class DealResponse {
 
     @SerializedName("price") public Double price;
@@ -26,8 +28,8 @@ public class DealResponse {
     @SerializedName("hotel") public Hotel hotel;
 
     public static class Flights {
-        @SerializedName("outbound") public Outbound outbound;
-        @SerializedName("return") public Return _return;
+        @SerializedName("outbound") public Flight outbound;
+        @SerializedName("return") public Flight inbound;
     }
 
     public static class Hotel {
@@ -35,20 +37,14 @@ public class DealResponse {
         @SerializedName("nights") public Integer nights;
     }
 
-    public static class Outbound {
-        @SerializedName("airline") public String airline;
-        @SerializedName("start") public FlightData start;
-        @SerializedName("end") public FlightData end;
-    }
-
-    public static class Return {
+    public static class Flight {
         @SerializedName("airline") public String airline;
         @SerializedName("start") public FlightData start;
         @SerializedName("end") public FlightData end;
     }
 
     public static class FlightData {
-        @SerializedName("datetime") public String datetime;
+        @SerializedName("datetime") public Date datetime;
         @SerializedName("airport") public String airport;
     }
 }

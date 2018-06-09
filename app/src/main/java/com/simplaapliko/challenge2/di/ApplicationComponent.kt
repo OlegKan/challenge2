@@ -17,15 +17,19 @@
 package com.simplaapliko.challenge2.di
 
 import com.simplaapliko.challenge2.App
+import com.simplaapliko.challenge2.ui.deals.DealsComponent
 import dagger.Component
 
 @ApplicationScope
 @Component(
     modules = [
         (ApplicationModule::class),
-        (DataModule::class)
+        (DataModule::class),
+        (UtilsModule::class)
     ]
 )
 interface ApplicationComponent {
     fun inject(app: App)
+
+    fun plus(module: DealsComponent.Module): DealsComponent
 }

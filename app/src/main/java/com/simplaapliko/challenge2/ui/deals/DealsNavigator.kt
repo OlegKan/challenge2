@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.di
+package com.simplaapliko.challenge2.ui.deals
 
-import android.app.Application
-import android.content.Context
-import dagger.Module
-import dagger.Provides
+import com.simplaapliko.challenge2.domain.model.Deal
+import com.simplaapliko.challenge2.ui.deal.DealActivity
 
-@Module
-class ApplicationModule(application: Application) {
+class DealsNavigator internal constructor(private val activity: DealsActivity) :
+    DealsContract.Navigator {
 
-    private val context: Context = application.applicationContext
-
-    @Provides
-    @ApplicationScope
-    fun provideContext(): Context {
-        return context
+    override fun goToDealScreen(model: Deal) {
+        val intent = DealActivity.getStartIntent(activity)
+        activity.startActivity(intent)
     }
 }

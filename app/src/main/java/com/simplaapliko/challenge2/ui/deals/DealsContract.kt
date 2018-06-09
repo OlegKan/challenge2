@@ -14,21 +14,31 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.di
+package com.simplaapliko.challenge2.ui.deals
 
-import android.app.Application
-import android.content.Context
-import dagger.Module
-import dagger.Provides
+import com.simplaapliko.challenge2.domain.model.Deal
 
-@Module
-class ApplicationModule(application: Application) {
+interface DealsContract {
 
-    private val context: Context = application.applicationContext
+    interface Navigator {
+        fun goToDealScreen(model: Deal)
+    }
 
-    @Provides
-    @ApplicationScope
-    fun provideContext(): Context {
-        return context
+    interface Presenter {
+        fun init()
+
+        fun destroy()
+    }
+
+    interface View {
+        fun hideProgress()
+
+        fun showProgress()
+
+        fun setEmptyMessageVisibility(visible: Boolean?)
+
+        fun displayDeals(items: List<Deal>)
+
+        fun showMessage(message: String)
     }
 }

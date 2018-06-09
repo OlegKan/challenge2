@@ -16,19 +16,29 @@
 
 package com.simplaapliko.challenge2.di
 
-import android.app.Application
-import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.internal.bind.DateTypeAdapter
+import com.simplaapliko.challenge2.rx.AppRxSchedulers
+import com.simplaapliko.challenge2.rx.RxSchedulers
 import dagger.Module
 import dagger.Provides
+import java.util.*
 
 @Module
-class ApplicationModule(application: Application) {
-
-    private val context: Context = application.applicationContext
+class UtilsModule {
 
     @Provides
     @ApplicationScope
-    fun provideContext(): Context {
-        return context
+    fun providesGson(): Gson {
+        val builder = GsonBuilder()
+        builder.registerTypeAdapter(Date::class.java, DateTypeAdapter())
+        return builder.create()
+    }
+
+    @Provides
+    @ApplicationScope
+    fun provideRxSchedulers(): RxSchedulers {
+        return AppRxSchedulers()
     }
 }

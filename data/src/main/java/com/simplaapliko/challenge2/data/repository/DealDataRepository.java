@@ -35,7 +35,6 @@ import com.simplaapliko.challenge2.domain.repository.HotelRepository;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Maybe;
@@ -67,7 +66,7 @@ public class DealDataRepository implements DealRepository {
                 .flatMapIterable(t -> t)
                 .flatMap(dealResponse -> Maybe.zip(Maybe.just(dealResponse),
                         airlineRepository.get(dealResponse.flights.outbound.airline),
-                        airlineRepository.get(dealResponse.flights._return.airline),
+                        airlineRepository.get(dealResponse.flights.inbound.airline),
                         airportRepository.get(dealResponse.flights.outbound.start.airport),
                         airportRepository.get(dealResponse.flights.outbound.end.airport),
                         currencyRepository.get(dealResponse.currency),
@@ -90,16 +89,16 @@ public class DealDataRepository implements DealRepository {
     private Flights getFlights(DealResponse dealResponse, Airline airline1, Airline airline2,
             Airport airport1, Airport airport2) {
 
-        Flight out = getFlight(dealResponse, airline1, airport1, airport2);
-        Flight in = getFlight(dealResponse, airline2, airport2, airport1);
+        Flight out = getFlight(dealResponse.flights.outbound, airline1, airport1, airport2);
+        Flight in = getFlight(dealResponse.flights.inbound, airline2, airport2, airport1);
 
         return new Flights(out, in);
     }
 
-    private Flight getFlight(DealResponse dealResponse, Airline airline, Airport airport1,
+    private Flight getFlight(DealResponse.Flight flight, Airline airline, Airport airport1,
             Airport airport2) {
-        FlightData fd1 = new FlightData(new Date(), airport1);
-        FlightData fd2 = new FlightData(new Date(), airport2);
+        FlightData fd1 = new FlightData(flight.start.datetime, airport1);
+        FlightData fd2 = new FlightData(flight.end.datetime, airport2);
         return new Flight(airline, fd1, fd2);
     }
 }

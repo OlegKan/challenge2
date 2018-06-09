@@ -38,4 +38,38 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="LodgingView" />
+
+    <style name="LodgingView.Nights" parent="LodgingView">
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="LodgingView.NightsLabel" parent="LodgingView">
+        <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="PriceView">
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TripDetailsView" />
+
+    <style name="TripDetailsView.Flights" parent="TripDetailsView">
+        <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TripDetailsView.Date" parent="TripDetailsView">
+        <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TripDetailsView.Time" parent="TripDetailsView">
+        <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

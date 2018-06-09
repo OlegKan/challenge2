@@ -16,19 +16,7 @@
 
 package com.simplaapliko.challenge2.di
 
-import android.app.Application
-import android.content.Context
-import dagger.Module
-import dagger.Provides
+import javax.inject.Scope
 
-@Module
-class ApplicationModule(application: Application) {
-
-    private val context: Context = application.applicationContext
-
-    @Provides
-    @ApplicationScope
-    fun provideContext(): Context {
-        return context
-    }
-}
+@Scope
+annotation class ActivityScope

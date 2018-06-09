@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.di
+package com.simplaapliko.challenge2.rx
 
-import android.app.Application
-import android.content.Context
-import dagger.Module
-import dagger.Provides
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-@Module
-class ApplicationModule(application: Application) {
+class AppRxSchedulers : RxSchedulers() {
 
-    private val context: Context = application.applicationContext
+    override fun getMainThreadScheduler(): Scheduler {
+        return AndroidSchedulers.mainThread()
+    }
 
-    @Provides
-    @ApplicationScope
-    fun provideContext(): Context {
-        return context
+    override fun getIoScheduler(): Scheduler {
+        return Schedulers.io()
+    }
+
+    override fun getComputationScheduler(): Scheduler {
+        return Schedulers.computation()
     }
 }
