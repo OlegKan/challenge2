@@ -14,7 +14,16 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.domain.model
+package com.simplaapliko.challenge2.data.repository
 
-data class Deal(val price: Double, val currency: Currency, val flights: Flights,
-    val lodging: Lodging)
+import com.simplaapliko.challenge2.data.datasource.AirlineDataSource
+import com.simplaapliko.challenge2.domain.model.Airline
+import com.simplaapliko.challenge2.domain.repository.AirlineRepository
+import io.reactivex.Maybe
+
+class AirlineDataRepository(private val dataSource: AirlineDataSource) : AirlineRepository {
+
+    override fun get(id: String): Maybe<Airline> {
+        return dataSource.get(id).map {t -> t.toAirline()}
+    }
+}

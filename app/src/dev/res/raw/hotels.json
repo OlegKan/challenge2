@@ -1,0 +1,20 @@
+{
+    "marriott": {
+        "_id": "marriott",
+        "name": "Marriott",
+        "rating": 4,
+        "image_url": "https://upside-central-assets.s3-us-west-2.amazonaws.com/hotels/marriott.png"
+    },
+    "novotel": {
+        "_id": "novotel",
+        "name": "Novotel",
+        "rating": 3,
+        "image_url": "https://upside-central-assets.s3-us-west-2.amazonaws.com/hotels/novotel.png"
+    },
+    "hyatt": {
+        "_id": "hyatt",
+        "name": "Hyatt",
+        "rating": 3.5,
+        "image_url": "https://upside-central-assets.s3-us-west-2.amazonaws.com/hotels/hyatt.png"
+    }
+}

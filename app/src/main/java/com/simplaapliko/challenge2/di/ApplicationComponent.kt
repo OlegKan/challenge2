@@ -22,7 +22,8 @@ import dagger.Component
 @ApplicationScope
 @Component(
     modules = [
-        (ApplicationModule::class)
+        (ApplicationModule::class),
+        (DataModule::class)
     ]
 )
 interface ApplicationComponent {

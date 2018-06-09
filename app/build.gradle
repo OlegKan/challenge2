@@ -72,5 +72,10 @@ dependencies {
     kapt deps.dagger.compiler
     compileOnly deps.javaxannotation
 
+    implementation deps.gson
+
+    implementation deps.reactivex.rxbinding
+    implementation deps.reactivex.rxjava2
+
     testImplementation deps.test.junit
 }

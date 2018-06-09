@@ -14,7 +14,18 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.domain.model
+package com.simplaapliko.challenge2.di
 
-data class Deal(val price: Double, val currency: Currency, val flights: Flights,
-    val lodging: Lodging)
+import android.content.Context
+import android.support.annotation.RawRes
+import java.io.BufferedReader
+
+class Utils {
+
+    companion object {
+        fun rawResourceAsString(context: Context, @RawRes resId: Int): String {
+            val inputStream = context.resources.openRawResource(resId)
+            return inputStream.bufferedReader().use(BufferedReader::readText)
+        }
+    }
+}

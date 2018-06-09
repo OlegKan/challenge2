@@ -18,6 +18,8 @@ package com.simplaapliko.challenge2.di
 
 import android.app.Application
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 
@@ -30,5 +32,11 @@ class ApplicationModule(application: Application) {
     @ApplicationScope
     fun provideContext(): Context {
         return context
+    }
+
+    @Provides
+    @ApplicationScope
+    fun providesGson(): Gson {
+        return GsonBuilder().create()
     }
 }

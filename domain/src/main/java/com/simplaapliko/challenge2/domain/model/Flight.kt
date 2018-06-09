@@ -16,4 +16,4 @@
 
 package com.simplaapliko.challenge2.domain.model
 
-data class Flight(val airline: Airline, val flightData: FlightData)
+data class Flight(val airline: Airline, val start: FlightData, val end: FlightData)

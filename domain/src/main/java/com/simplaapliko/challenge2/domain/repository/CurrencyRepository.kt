@@ -17,9 +17,9 @@
 package com.simplaapliko.challenge2.domain.repository
 
 import com.simplaapliko.challenge2.domain.model.Currency
-import io.reactivex.Single
+import io.reactivex.Maybe
 
 interface CurrencyRepository {
 
-    fun get(id: String): Single<Currency>
+    fun get(id: String): Maybe<Currency>
 }

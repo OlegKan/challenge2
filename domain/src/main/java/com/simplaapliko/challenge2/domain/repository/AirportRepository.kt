@@ -17,9 +17,9 @@
 package com.simplaapliko.challenge2.domain.repository
 
 import com.simplaapliko.challenge2.domain.model.Airport
-import io.reactivex.Single
+import io.reactivex.Maybe
 
 interface AirportRepository {
 
-    fun get(id: String): Single<Airport>
+    fun get(id: String): Maybe<Airport>
 }

@@ -1,0 +1,39 @@
+/*
+ * Copyright (C) 2018 Oleg Kan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.simplaapliko.challenge2.data.datasource.response;
+
+import com.google.gson.annotations.SerializedName;
+import com.simplaapliko.challenge2.domain.model.Currency;
+
+public class CurrencyResponse {
+
+    @SerializedName("USD") public CurrencyEntity usd;
+    @SerializedName("BHT") public CurrencyEntity bht;
+    @SerializedName("EUR") public CurrencyEntity eur;
+    @SerializedName("YEN") public CurrencyEntity yen;
+
+    public class CurrencyEntity {
+        @SerializedName("_id") public String id;
+        @SerializedName("name") public String name;
+        @SerializedName("symbol") public String symbol;
+        @SerializedName("exchange") public Double exchange;
+
+        public Currency toCurrency() {
+            return new Currency(id, name, symbol, exchange);
+        }
+    }
+}

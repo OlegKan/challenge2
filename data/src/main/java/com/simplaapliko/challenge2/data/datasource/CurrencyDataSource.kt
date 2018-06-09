@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.domain.model
+package com.simplaapliko.challenge2.data.datasource
 
-data class Deal(val price: Double, val currency: Currency, val flights: Flights,
-    val lodging: Lodging)
+import com.simplaapliko.challenge2.data.datasource.response.CurrencyResponse
+import io.reactivex.Maybe
+
+interface CurrencyDataSource {
+
+    fun get(id: String): Maybe<CurrencyResponse.CurrencyEntity>
+}

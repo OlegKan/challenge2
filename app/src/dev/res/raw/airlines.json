@@ -1,0 +1,32 @@
+{
+    "aa": {
+        "_id": "aa",
+        "name": "American",
+        "image_url": "https://upside-central-assets.s3-us-west-2.amazonaws.com/airlines/aa.png"
+    },
+    "ua": {
+        "_id": "ua",
+        "name": "United",
+        "image_url": "https://upside-central-assets.s3-us-west-2.amazonaws.com/airlines/ua.png"
+    },
+    "b6": {
+        "_id": "b6",
+        "name": "Jet Blue",
+        "image_url": "https://upside-central-assets.s3-us-west-2.amazonaws.com/airlines/b6.png"
+    },
+    "vx": {
+        "_id": "vx",
+        "name": "Virgin America",
+        "image_url": "https://upside-central-assets.s3-us-west-2.amazonaws.com/airlines/vx.png"
+    },
+    "dl": {
+        "_id": "dl",
+        "name": "Delta",
+        "image_url": "https://upside-central-assets.s3-us-west-2.amazonaws.com/airlines/dl.png"
+    },
+    "as": {
+        "_id": "as",
+        "name": "Alaska",
+        "image_url": "https://upside-central-assets.s3-us-west-2.amazonaws.com/airlines/as.png"
+    }
+}
