@@ -17,6 +17,7 @@
 package com.simplaapliko.challenge2.di
 
 import com.simplaapliko.challenge2.App
+import com.simplaapliko.challenge2.ui.deal.DealComponent
 import com.simplaapliko.challenge2.ui.deals.DealsComponent
 import dagger.Component
 
@@ -30,6 +31,8 @@ import dagger.Component
 )
 interface ApplicationComponent {
     fun inject(app: App)
+
+    fun plus(module: DealComponent.Module): DealComponent
 
     fun plus(module: DealsComponent.Module): DealsComponent
 }

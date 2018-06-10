@@ -20,4 +20,7 @@
 
     <string name="activity_deal">Deal</string>
     <string name="activity_deals">Deals</string>
+
+    <string name="arrives">Arrives</string>
+    <string name="departs">Departs</string>
 </resources>

@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.domain.model
+package com.simplaapliko.challenge2.ui.deal
 
-import java.io.Serializable
+import com.simplaapliko.challenge2.domain.model.Deal
 
-data class Currency(val id: String, val name: String, val symbol: String, val exchange: Double) :
-    Serializable
+class DealNavigator internal constructor(private val activity: DealActivity) :
+    DealContract.Navigator {
+
+    override fun goToDealScreen(model: Deal) {
+        val intent = DealActivity.getStartIntent(activity, model)
+        activity.startActivity(intent)
+    }
+}

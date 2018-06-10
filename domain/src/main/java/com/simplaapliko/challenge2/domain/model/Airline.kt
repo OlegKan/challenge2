@@ -16,4 +16,6 @@
 
 package com.simplaapliko.challenge2.domain.model
 
-data class Airline(val id: String, val name: String, val imageUrl: String)
+import java.io.Serializable
+
+data class Airline(val id: String, val name: String, val imageUrl: String) : Serializable

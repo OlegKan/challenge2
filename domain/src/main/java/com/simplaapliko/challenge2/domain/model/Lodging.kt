@@ -16,4 +16,6 @@
 
 package com.simplaapliko.challenge2.domain.model
 
-class Lodging(val hotel: Hotel, val nights: Int)
+import java.io.Serializable
+
+class Lodging(val hotel: Hotel, val nights: Int) : Serializable

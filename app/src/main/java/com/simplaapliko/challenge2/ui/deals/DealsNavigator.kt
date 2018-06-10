@@ -23,7 +23,7 @@ class DealsNavigator internal constructor(private val activity: DealsActivity) :
     DealsContract.Navigator {
 
     override fun goToDealScreen(model: Deal) {
-        val intent = DealActivity.getStartIntent(activity)
+        val intent = DealActivity.getStartIntent(activity, model)
         activity.startActivity(intent)
     }
 }

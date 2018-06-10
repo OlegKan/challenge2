@@ -16,4 +16,6 @@
 
 package com.simplaapliko.challenge2.domain.model
 
-data class Flight(val airline: Airline, val start: FlightData, val end: FlightData)
+import java.io.Serializable
+
+data class Flight(val airline: Airline, val start: FlightData, val end: FlightData) : Serializable

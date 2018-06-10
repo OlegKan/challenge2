@@ -21,6 +21,7 @@ import com.simplaapliko.challenge2.domain.repository.DealRepository
 import com.simplaapliko.challenge2.rx.RxSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import java.util.concurrent.TimeUnit
 
 class DealsPresenter internal constructor(private val rxSchedulers: RxSchedulers,
     private val repository: DealRepository, private val view: DealsContract.View,
@@ -59,7 +60,20 @@ class DealsPresenter internal constructor(private val rxSchedulers: RxSchedulers
     }
 
     private fun bindView() {
+        val showProfile = view.onDealClick()
+            .observeOn(rxSchedulers.getMainThreadScheduler())
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe({ t -> handleDealClickAction(t) }, { t -> handleUnknownError(t) })
+        disposables.add(showProfile)
+    }
 
+    private fun handleDealClickAction(deal: Deal) {
+        navigator.goToDealScreen(deal)
+    }
+
+    private fun handleUnknownError(throwable: Throwable) {
+        // for demo purposes only
+        view.showMessage(throwable.localizedMessage)
     }
 
     override fun destroy() {

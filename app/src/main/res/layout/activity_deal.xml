@@ -40,13 +40,68 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        >
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <com.simplaapliko.challenge2.widget.LodgingDetailsView
+                    android:id="@+id/lodging"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="8dp"
+                    />
+
+                <com.simplaapliko.challenge2.widget.FlightDetailsView
+                    android:id="@+id/outbound"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="8dp"
+                    />
+
+                <com.simplaapliko.challenge2.widget.FlightDetailsView
+                    android:id="@+id/inbound"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <com.simplaapliko.challenge2.widget.PriceView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/pinned_bar_color"
+            android:gravity="center"
+            app:priceTextAppearance="@style/PriceView.Accent"
+            tools:text="$750.45"
+            />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/progress"

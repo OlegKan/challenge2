@@ -14,34 +14,25 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.ui.deals
+package com.simplaapliko.challenge2.ui.deal
 
 import com.simplaapliko.challenge2.domain.model.Deal
-import io.reactivex.Observable
+import com.simplaapliko.challenge2.domain.repository.DealRepository
+import com.simplaapliko.challenge2.rx.RxSchedulers
+import io.reactivex.disposables.CompositeDisposable
 
-interface DealsContract {
+class DealPresenter internal constructor(private val rxSchedulers: RxSchedulers,
+    private val repository: DealRepository, private val view: DealContract.View,
+    private val navigator: DealContract.Navigator, private val deal: Deal) :
+    DealContract.Presenter {
 
-    interface Navigator {
-        fun goToDealScreen(model: Deal)
+    private val disposables = CompositeDisposable()
+
+    override fun init() {
+        view.displayDeal(deal)
     }
 
-    interface Presenter {
-        fun init()
-
-        fun destroy()
-    }
-
-    interface View {
-        fun hideProgress()
-
-        fun showProgress()
-
-        fun setEmptyMessageVisibility(visible: Boolean?)
-
-        fun displayDeals(items: List<Deal>)
-
-        fun showMessage(message: String)
-
-        fun onDealClick(): Observable<Deal>
+    override fun destroy() {
+        disposables.dispose()
     }
 }

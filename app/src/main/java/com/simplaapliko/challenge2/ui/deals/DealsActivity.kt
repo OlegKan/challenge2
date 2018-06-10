@@ -27,6 +27,7 @@ import com.simplaapliko.challenge2.di.ApplicationComponent
 import com.simplaapliko.challenge2.domain.model.Deal
 import com.simplaapliko.challenge2.ui.base.BaseActivity
 import com.simplaapliko.challenge2.ui.deals.adapter.DealAdapter
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_deals.*
 import javax.inject.Inject
 
@@ -86,5 +87,9 @@ class DealsActivity : BaseActivity(), DealsContract.View {
     }
 
     override fun showMessage(message: String) {
+    }
+
+    override fun onDealClick(): Observable<Deal> {
+        return adapter.clickObservable;
     }
 }

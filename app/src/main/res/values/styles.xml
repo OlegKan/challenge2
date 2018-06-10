@@ -38,6 +38,50 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="FlightDetailsView" />
+
+    <style name="FlightDetailsView.Airline" parent="FlightDetailsView">
+        <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="FlightDetailsView.FlightInfo" parent="FlightDetailsView">
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="FlightDetailsView.Date" parent="FlightDetailsView">
+        <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="FlightDetailsView.Location" parent="FlightDetailsView">
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="FlightDetailsView.Time" parent="FlightDetailsView">
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="LodgingDetailsView" />
+
+    <style name="LodgingDetailsView.HotelInfo" parent="LodgingDetailsView">
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="LodgingDetailsView.Nights" parent="LodgingDetailsView">
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="LodgingDetailsView.NightsLabel" parent="LodgingDetailsView">
+        <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="LodgingView" />
 
     <style name="LodgingView.Nights" parent="LodgingView">
@@ -53,6 +97,12 @@
     <style name="PriceView">
         <item name="android:textColor">@color/text_color_primary</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="PriceView.Accent">
+        <item name="android:textColor">@color/color_accent</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TripDetailsView" />

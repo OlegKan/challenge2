@@ -14,9 +14,29 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.domain.model
+package com.simplaapliko.challenge2.ui.deal
 
-import java.io.Serializable
+import com.simplaapliko.challenge2.domain.model.Deal
 
-data class Currency(val id: String, val name: String, val symbol: String, val exchange: Double) :
-    Serializable
+interface DealContract {
+
+    interface Navigator {
+        fun goToDealScreen(model: Deal)
+    }
+
+    interface Presenter {
+        fun init()
+
+        fun destroy()
+    }
+
+    interface View {
+        fun hideProgress()
+
+        fun showProgress()
+
+        fun displayDeal(deal: Deal)
+
+        fun showMessage(message: String)
+    }
+}

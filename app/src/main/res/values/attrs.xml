@@ -17,11 +17,30 @@
 
 <resources>
 
+    <attr name="dateTextAppearance" format="reference" />
+    <attr name="labelTextAppearance" format="reference" />
+    <attr name="nightsTextAppearance" format="reference" />
+    <attr name="timeTextAppearance" format="reference" />
+
+    <declare-styleable name="FlightDetailsView">
+        <attr name="airlineTextAppearance" format="reference" />
+        <attr name="flightInfoTextAppearance" format="reference" />
+        <attr name="locationTextAppearance" format="reference" />
+        <attr name="dateTextAppearance" />
+        <attr name="timeTextAppearance" />
+    </declare-styleable>
+
+    <declare-styleable name="LodgingDetailsView">
+        <attr name="hotelInfoTextAppearance" format="reference" />
+        <attr name="labelTextAppearance" />
+        <attr name="nightsTextAppearance" />
+    </declare-styleable>
+
     <declare-styleable name="LodgingView">
         <attr name="image" format="reference" />
-        <attr name="labelTextAppearance" format="reference" />
+        <attr name="labelTextAppearance" />
         <attr name="nights" format="integer" />
-        <attr name="nightsTextAppearance" format="reference" />
+        <attr name="nightsTextAppearance" />
     </declare-styleable>
 
     <declare-styleable name="PriceView">
@@ -30,8 +49,8 @@
 
     <declare-styleable name="TripDetailsView">
         <attr name="flightsTextAppearance" format="reference" />
-        <attr name="dateTextAppearance" format="reference" />
-        <attr name="timeTextAppearance" format="reference" />
+        <attr name="dateTextAppearance" />
+        <attr name="timeTextAppearance" />
     </declare-styleable>
 
 </resources>

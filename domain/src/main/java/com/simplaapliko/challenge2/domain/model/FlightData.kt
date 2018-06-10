@@ -16,6 +16,7 @@
 
 package com.simplaapliko.challenge2.domain.model
 
-import java.util.Date
+import java.io.Serializable
+import java.util.*
 
-data class FlightData(val datetime: Date, val airport: Airport)
+data class FlightData(val datetime: Date, val airport: Airport) : Serializable

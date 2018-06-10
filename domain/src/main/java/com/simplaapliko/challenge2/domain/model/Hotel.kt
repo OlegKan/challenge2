@@ -16,4 +16,7 @@
 
 package com.simplaapliko.challenge2.domain.model
 
-data class Hotel(val id: String, val name: String, val rating: Double, val imageUrl: String)
+import java.io.Serializable
+
+data class Hotel(val id: String, val name: String, val rating: Double, val imageUrl: String) :
+    Serializable
