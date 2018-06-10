@@ -41,15 +41,8 @@ interface DealComponent {
         @Provides
         @ActivityScope
         internal fun provideOverviewPresenter(rxSchedulers: RxSchedulers,
-            repository: DealRepository, view: DealContract.View,
-            navigator: DealContract.Navigator): DealContract.Presenter {
-            return DealPresenter(rxSchedulers, repository, view, navigator, deal)
-        }
-
-        @Provides
-        @ActivityScope
-        internal fun provideOverviewNavigator(): DealContract.Navigator {
-            return DealNavigator(activity)
+            repository: DealRepository, view: DealContract.View): DealContract.Presenter {
+            return DealPresenter(rxSchedulers, repository, view, deal)
         }
     }
 }

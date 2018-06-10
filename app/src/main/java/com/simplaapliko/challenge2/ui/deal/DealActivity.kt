@@ -22,6 +22,7 @@ import android.os.Bundle
 import com.simplaapliko.challenge2.R
 import com.simplaapliko.challenge2.di.ApplicationComponent
 import com.simplaapliko.challenge2.domain.model.Deal
+import com.simplaapliko.challenge2.domain.model.DealFull
 import com.simplaapliko.challenge2.domain.model.Flight
 import com.simplaapliko.challenge2.ui.base.BaseActivity
 import com.simplaapliko.challenge2.widget.FlightDetailsView
@@ -82,7 +83,7 @@ class DealActivity : BaseActivity(), DealContract.View {
     override fun showProgress() {
     }
 
-    override fun displayDeal(deal: Deal) {
+    override fun displayDeal(deal: DealFull) {
         price.setCurrency(deal.currency.symbol)
         price.setPriceText(deal.price)
 
@@ -92,7 +93,7 @@ class DealActivity : BaseActivity(), DealContract.View {
         displayFlight(inbound, deal.flights.inbound)
 
         lodging.nights = deal.lodging.nights
-        lodging.setRating(deal.lodging.hotel.rating)
+        lodging.rating = deal.lodging.hotel.rating
         lodging.setHotel(deal.lodging.hotel.name)
 
         val imagePath = deal.lodging.hotel.imageUrl

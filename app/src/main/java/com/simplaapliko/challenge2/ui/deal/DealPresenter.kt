@@ -17,19 +17,36 @@
 package com.simplaapliko.challenge2.ui.deal
 
 import com.simplaapliko.challenge2.domain.model.Deal
+import com.simplaapliko.challenge2.domain.model.DealFull
 import com.simplaapliko.challenge2.domain.repository.DealRepository
 import com.simplaapliko.challenge2.rx.RxSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
-class DealPresenter internal constructor(private val rxSchedulers: RxSchedulers,
+class DealPresenter(private val rxSchedulers: RxSchedulers,
     private val repository: DealRepository, private val view: DealContract.View,
-    private val navigator: DealContract.Navigator, private val deal: Deal) :
+    private val deal: Deal) :
     DealContract.Presenter {
 
     private val disposables = CompositeDisposable()
 
     override fun init() {
-        view.displayDeal(deal)
+        view.showProgress()
+
+        val disposable = repository.getDeal(deal)
+            .compose(rxSchedulers.getComputationToMainTransformerMaybe())
+            .subscribe({ t -> this.handleGetDealSuccess(t) },
+                { t -> this.handleGetDealError(t) })
+        disposables.add(disposable)
+    }
+
+    private fun handleGetDealSuccess(data: DealFull) {
+        view.hideProgress()
+        view.displayDeal(data)
+    }
+
+    private fun handleGetDealError(throwable: Throwable) {
+        view.hideProgress()
+        view.showMessage(throwable.localizedMessage)
     }
 
     override fun destroy() {

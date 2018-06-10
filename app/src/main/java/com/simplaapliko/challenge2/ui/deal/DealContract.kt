@@ -16,13 +16,9 @@
 
 package com.simplaapliko.challenge2.ui.deal
 
-import com.simplaapliko.challenge2.domain.model.Deal
+import com.simplaapliko.challenge2.domain.model.DealFull
 
 interface DealContract {
-
-    interface Navigator {
-        fun goToDealScreen(model: Deal)
-    }
 
     interface Presenter {
         fun init()
@@ -35,7 +31,7 @@ interface DealContract {
 
         fun showProgress()
 
-        fun displayDeal(deal: Deal)
+        fun displayDeal(deal: DealFull)
 
         fun showMessage(message: String)
     }

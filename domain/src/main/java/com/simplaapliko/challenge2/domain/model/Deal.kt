@@ -17,6 +17,19 @@
 package com.simplaapliko.challenge2.domain.model
 
 import java.io.Serializable
+import java.util.*
 
-data class Deal(val price: Double, val currency: Currency, val flights: Flights,
+data class Deal(
+    val price: Double,
+    val currency: Currency,
+    val outboundAirlineId: String,
+    val outboundStartAirportId: String,
+    val outboundStartDate: Date,
+    val outboundEndAirportId: String,
+    val outboundEndDate: Date,
+    val inboundAirlineId: String,
+    val inboundStartAirportId: String,
+    val inboundStartDate: Date,
+    val inboundEndAirportId: String,
+    val inboundEndDate: Date,
     val lodging: Lodging) : Serializable

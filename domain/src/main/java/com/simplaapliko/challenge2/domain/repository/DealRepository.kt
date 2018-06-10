@@ -17,9 +17,13 @@
 package com.simplaapliko.challenge2.domain.repository
 
 import com.simplaapliko.challenge2.domain.model.Deal
+import com.simplaapliko.challenge2.domain.model.DealFull
+import io.reactivex.Maybe
 import io.reactivex.Single
 
 interface DealRepository {
 
     fun getAll(): Single<List<Deal>>
+
+    fun getDeal(deal: Deal): Maybe<DealFull>
 }

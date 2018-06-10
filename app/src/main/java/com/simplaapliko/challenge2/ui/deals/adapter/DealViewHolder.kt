@@ -21,7 +21,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.simplaapliko.challenge2.R
 import com.simplaapliko.challenge2.domain.model.Deal
-import com.simplaapliko.challenge2.domain.model.Flight
 import com.simplaapliko.challenge2.widget.LodgingView
 import com.simplaapliko.challenge2.widget.PriceView
 import com.simplaapliko.challenge2.widget.TripDetailsView
@@ -64,15 +63,12 @@ class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         priceView.setCurrency(model.currency.symbol)
         priceView.setPriceText(model.price)
 
-        val outboundFlight: Flight = model.flights.outbound
-        val inboundFlight: Flight = model.flights.inbound
-
-        val flights = String.format("%s - %s - %s", outboundFlight.start.airport.id,
-            outboundFlight.end.airport.id, inboundFlight.end.airport.id)
+        val flights = String.format("%s - %s - %s", model.outboundStartAirportId,
+            model.outboundEndAirportId, model.inboundEndAirportId)
 
         tripDetailsView.setFlights(flights)
-        tripDetailsView.departureDateTime = outboundFlight.start.datetime
-        tripDetailsView.returnDateTime = inboundFlight.end.datetime
+        tripDetailsView.departureDateTime = model.outboundStartDate
+        tripDetailsView.returnDateTime = model.inboundEndDate
 
         val imagePath = model.lodging.hotel.imageUrl
         if (imagePath.isNotBlank()) {

@@ -17,6 +17,7 @@
 package com.simplaapliko.challenge2.rx
 
 import io.reactivex.CompletableTransformer
+import io.reactivex.MaybeTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.Scheduler
 import io.reactivex.SingleTransformer
@@ -57,6 +58,13 @@ abstract class RxSchedulers {
 
     fun <T> getComputationToMainTransformerSingle(): SingleTransformer<T, T> {
         return SingleTransformer { upstream ->
+            upstream.subscribeOn(getComputationScheduler())
+                .observeOn(getMainThreadScheduler())
+        }
+    }
+
+    fun <T> getComputationToMainTransformerMaybe(): MaybeTransformer<T, T> {
+        return MaybeTransformer { upstream ->
             upstream.subscribeOn(getComputationScheduler())
                 .observeOn(getMainThreadScheduler())
         }

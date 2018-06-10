@@ -22,6 +22,7 @@ import com.simplaapliko.challenge2.domain.model.Airline;
 import com.simplaapliko.challenge2.domain.model.Airport;
 import com.simplaapliko.challenge2.domain.model.Currency;
 import com.simplaapliko.challenge2.domain.model.Deal;
+import com.simplaapliko.challenge2.domain.model.DealFull;
 import com.simplaapliko.challenge2.domain.model.Flight;
 import com.simplaapliko.challenge2.domain.model.FlightData;
 import com.simplaapliko.challenge2.domain.model.Flights;
@@ -35,6 +36,7 @@ import com.simplaapliko.challenge2.domain.repository.HotelRepository;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Maybe;
@@ -62,43 +64,74 @@ public class DealDataRepository implements DealRepository {
     @Override
     public Single<List<Deal>> getAll() {
         return dealDataSource.getAll()
-                .toObservable()
-                .flatMapIterable(t -> t)
-                .flatMap(dealResponse -> Maybe.zip(Maybe.just(dealResponse),
-                        airlineRepository.get(dealResponse.flights.outbound.airline),
-                        airlineRepository.get(dealResponse.flights.inbound.airline),
-                        airportRepository.get(dealResponse.flights.outbound.start.airport),
-                        airportRepository.get(dealResponse.flights.outbound.end.airport),
-                        currencyRepository.get(dealResponse.currency),
-                        hotelRepository.get(dealResponse.hotel.brand),
-                        this::convert).toObservable())
+                .flattenAsObservable(t -> t)
+                .flatMapMaybe(this::getAdditionalData)
                 .toList();
     }
 
-    private Deal convert(DealResponse dealResponse, Airline airline1, Airline airline2,
-            Airport airport1, Airport airport2, Currency currency, Hotel hotel) {
-        Lodging lodging = getLodging(dealResponse, hotel);
-        Flights flights = getFlights(dealResponse, airline1, airline2, airport1, airport2);
-        return new Deal(dealResponse.price, currency, flights, lodging);
+    @NotNull
+    @Override
+    public Maybe<DealFull> getDeal(@NotNull Deal deal) {
+        return Maybe.zip(Maybe.just(deal),
+                airlineRepository.get(deal.getOutboundAirlineId()),
+                airlineRepository.get(deal.getInboundAirlineId()),
+                airportRepository.get(deal.getOutboundStartAirportId()),
+                airportRepository.get(deal.getOutboundEndAirportId()),
+                this::convert);
     }
 
-    private Lodging getLodging(DealResponse dealResponse, Hotel hotel) {
-        return new Lodging(hotel, dealResponse.hotel.nights);
+    private Maybe<Deal> getAdditionalData(DealResponse dealResponse) {
+        return Maybe.zip(Maybe.just(dealResponse),
+                currencyRepository.get(dealResponse.currency),
+                hotelRepository.get(dealResponse.hotel.brand),
+                this::convert);
     }
 
-    private Flights getFlights(DealResponse dealResponse, Airline airline1, Airline airline2,
+    private DealFull convert(Deal deal, Airline airline1, Airline airline2, Airport airport1,
+            Airport airport2) {
+        Flights flights = getFlights(deal, airline1, airline2, airport1, airport2);
+
+        return new DealFull(deal.getPrice(), deal.getCurrency(), flights, deal.getLodging());
+    }
+
+    private Deal convert(DealResponse dealResponse, Currency currency, Hotel hotel) {
+        Lodging lodging = new Lodging(hotel, dealResponse.hotel.nights);
+
+        DealResponse.Flight outbound = dealResponse.flights.outbound;
+        DealResponse.Flight inbound = dealResponse.flights.inbound;
+
+        String outboundAirlineId = outbound.airline;
+        String outboundStartAirportId = outbound.start.airport;
+        Date outboundStartDate = outbound.start.datetime;
+        String outboundEndAirportId = outbound.end.airport;
+        Date outboundEndDate = outbound.end.datetime;
+        String inboundAirlineId = inbound.airline;
+        String inboundStartAirportId = inbound.start.airport;
+        Date inboundStartDate = inbound.start.datetime;
+        String inboundEndAirportId = inbound.end.airport;
+        Date inboundEndDate = inbound.end.datetime;
+
+        return new Deal(dealResponse.price, currency, outboundAirlineId, outboundStartAirportId,
+                outboundStartDate, outboundEndAirportId, outboundEndDate, inboundAirlineId,
+                inboundStartAirportId, inboundStartDate, inboundEndAirportId, inboundEndDate,
+                lodging);
+    }
+
+    private Flights getFlights(Deal deal, Airline airline1, Airline airline2,
             Airport airport1, Airport airport2) {
 
-        Flight out = getFlight(dealResponse.flights.outbound, airline1, airport1, airport2);
-        Flight in = getFlight(dealResponse.flights.inbound, airline2, airport2, airport1);
+        Flight out = getFlight(deal.getOutboundStartDate(), deal.getOutboundEndDate(), airline1,
+                airport1, airport2);
+        Flight in = getFlight(deal.getInboundStartDate(), deal.getInboundEndDate(), airline2,
+                airport2, airport1);
 
         return new Flights(out, in);
     }
 
-    private Flight getFlight(DealResponse.Flight flight, Airline airline, Airport airport1,
+    private Flight getFlight(Date start, Date end, Airline airline, Airport airport1,
             Airport airport2) {
-        FlightData fd1 = new FlightData(flight.start.datetime, airport1);
-        FlightData fd2 = new FlightData(flight.end.datetime, airport2);
+        FlightData fd1 = new FlightData(start, airport1);
+        FlightData fd2 = new FlightData(end, airport2);
         return new Flight(airline, fd1, fd2);
     }
 }
