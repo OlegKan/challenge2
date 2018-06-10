@@ -78,8 +78,8 @@ class DealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         if (imagePath.isNotBlank()) {
             Picasso.get()
                 .load(imagePath)
-                .placeholder(R.drawable.ic_hotel)
-                .error(R.drawable.ic_hotel)
+                .placeholder(R.drawable.ic_hotel_accent)
+                .error(R.drawable.ic_hotel_accent)
                 .resize(R.dimen.list_item_image_size, R.dimen.list_item_image_size)
                 .onlyScaleDown()
                 .centerCrop()

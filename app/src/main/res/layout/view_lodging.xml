@@ -28,9 +28,8 @@
         android:id="@+id/image"
         android:layout_width="@dimen/list_item_image_size"
         android:layout_height="@dimen/list_item_image_size"
-        android:background="@color/color_primary_dark"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_hotel"
+        android:src="@drawable/ic_hotel_accent"
         />
 
     <TextView
