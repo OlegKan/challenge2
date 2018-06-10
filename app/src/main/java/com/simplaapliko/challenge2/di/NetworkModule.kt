@@ -16,24 +16,26 @@
 
 package com.simplaapliko.challenge2.di
 
-import com.simplaapliko.challenge2.App
-import com.simplaapliko.challenge2.ui.deal.DealComponent
-import com.simplaapliko.challenge2.ui.deals.DealsComponent
-import dagger.Component
+import com.simplaapliko.challenge2.BuildConfig
+import dagger.Module
+import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 
-@ApplicationScope
-@Component(
-    modules = [
-        (ApplicationModule::class),
-        (DataModule::class),
-        (NetworkModule::class),
-        (UtilsModule::class)
-    ]
-)
-interface ApplicationComponent {
-    fun inject(app: App)
+@Module
+class NetworkModule {
 
-    fun plus(module: DealComponent.Module): DealComponent
+    @Provides
+    @ApplicationScope
+    fun provideOkHttpClient(): OkHttpClient {
 
-    fun plus(module: DealsComponent.Module): DealsComponent
+        val logging = HttpLoggingInterceptor()
+        if (BuildConfig.DEBUG) {
+            logging.level = HttpLoggingInterceptor.Level.BASIC
+        } else {
+            logging.level = HttpLoggingInterceptor.Level.NONE
+        }
+
+        return OkHttpClient.Builder().addInterceptor(logging).build()
+    }
 }

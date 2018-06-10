@@ -1,0 +1,62 @@
+{
+    "SAN": {
+        "_id": "SAN",
+        "name": "Lindbergh",
+        "city": "San Diego, CA"
+    },
+	"IAD": {
+        "_id": "IAD",
+		"name": "Dulles",
+		"city": "Washington, DC"
+	},
+	"SEA": {
+        "_id": "SEA",
+		"name": "SeaTac",
+		"city": "Seattle, WA"
+	},
+	"JFK": {
+        "_id": "JFK",
+		"name": "John F. Kennedy",
+		"city": "New York City, NY"
+	},
+	"ATL": {
+        "_id": "ATL",
+		"name": "Hartsfield-Jackson",
+		"city": "Atlanta, GA"
+	},
+    "BKK": {
+        "_id": "BKK",
+		"name": "Suvarnabhumi",
+		"city": "Bangkok, Thailand"
+    },
+    "CNX": {
+        "_id": "CNX",
+		"name": "Chiang Mai Int’l Airport",
+		"city": "Chiang Mai, Thailand"
+    },
+    "HKT": {
+        "_id": "HKT",
+		"name": "Phuket Int’l Airport",
+		"city": "Phuket, Thailand"
+    },
+	"NRT": {
+        "_id": "NRT",
+		"name": "Narita",
+		"city": "Tokyo, Japan"
+	},
+	"UKB": {
+        "_id": "UKB",
+		"name": "Kobe Int’l Airport",
+		"city": "Kobe, Japan"
+	},
+	"TXL": {
+        "_id": "TXL",
+		"name": "Tegel",
+		"city": "Berlin, Germany"
+	},
+	"LHR": {
+        "_id": "LHR",
+		"name": "Heathrow",
+		"city": "London, UK"
+	}
+}

@@ -46,14 +46,12 @@ dependencies {
 
     implementation deps.kotlin.stdlib
 
-    implementation deps.okhttp.loggingInterceptor
+    api deps.gson
+
+    api deps.okhttp.loggingInterceptor
     implementation deps.okhttp.okhttp3
 
     implementation deps.reactivex.rxjava2
-
-    implementation deps.retrofit.adapterRxJava
-    implementation deps.retrofit.converterGson
-    implementation deps.retrofit.retrofit2
 
     testImplementation deps.test.junit
 }

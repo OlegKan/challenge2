@@ -73,8 +73,6 @@ dependencies {
     kapt deps.dagger.compiler
     compileOnly deps.javaxannotation
 
-    implementation deps.gson
-
     implementation deps.picasso
 
     implementation deps.reactivex.rxbinding
