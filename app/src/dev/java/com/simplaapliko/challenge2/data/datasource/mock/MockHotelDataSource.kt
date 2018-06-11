@@ -22,6 +22,7 @@ import com.simplaapliko.challenge2.R
 import com.simplaapliko.challenge2.data.datasource.HotelDataSource
 import com.simplaapliko.challenge2.data.datasource.response.HotelResponse
 import com.simplaapliko.challenge2.di.Utils
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 class MockHotelDataSource(context: Context, gson: Gson) : HotelDataSource {
@@ -45,5 +46,9 @@ class MockHotelDataSource(context: Context, gson: Gson) : HotelDataSource {
         } else {
             Maybe.empty()
         }
+    }
+
+    override fun prefetch(): Completable {
+        return Completable.complete()
     }
 }

@@ -19,11 +19,16 @@ package com.simplaapliko.challenge2.data.repository
 import com.simplaapliko.challenge2.data.datasource.HotelDataSource
 import com.simplaapliko.challenge2.domain.model.Hotel
 import com.simplaapliko.challenge2.domain.repository.HotelRepository
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 class HotelDataRepository(private val dataSource: HotelDataSource) : HotelRepository {
 
     override fun get(id: String): Maybe<Hotel> {
         return dataSource.get(id).map { t -> t.toHotel() }
+    }
+
+    override fun prefetch(): Completable {
+        return dataSource.prefetch()
     }
 }

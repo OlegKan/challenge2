@@ -24,6 +24,7 @@ import com.simplaapliko.challenge2.data.datasource.response.CurrencyResponse;
 
 import org.jetbrains.annotations.NotNull;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import okhttp3.OkHttpClient;
 
@@ -43,13 +44,21 @@ public class RemoteCurrencyDataSource implements CurrencyDataSource {
     @Override
     public Maybe<CurrencyResponse.CurrencyEntity> get(@NotNull String id) {
         return Maybe.concat(
-                cache.getCached(id),
+                cache.get(id),
                 GetCurrenciesSingle.create(okHttpClient, gson)
-                        .doOnSuccess(cache::cache)
+                        .doOnSuccess(cache::put)
                         .toObservable()
                         .flatMapIterable(t -> t)
                         .filter(entity -> id.equals(entity.id))
                         .singleElement())
                 .firstElement();
+    }
+
+    @NotNull
+    @Override
+    public Completable prefetch() {
+        return GetCurrenciesSingle.create(okHttpClient, gson)
+                .doOnSuccess(cache::put)
+                .ignoreElement();
     }
 }

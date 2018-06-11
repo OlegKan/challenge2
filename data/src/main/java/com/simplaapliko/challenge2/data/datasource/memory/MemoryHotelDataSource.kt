@@ -18,6 +18,7 @@ package com.simplaapliko.challenge2.data.datasource.memory
 
 import com.simplaapliko.challenge2.data.datasource.HotelDataSource
 import com.simplaapliko.challenge2.data.datasource.response.HotelResponse
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 class MemoryHotelDataSource : HotelDataSource, Cache.Hotel {
@@ -33,18 +34,13 @@ class MemoryHotelDataSource : HotelDataSource, Cache.Hotel {
         }
     }
 
-    override fun cache(list: List<HotelResponse.HotelEntity>) {
+    override fun put(list: List<HotelResponse.HotelEntity>) {
         for (item in list) {
             map[item.id] = item
         }
     }
 
-    override fun getCached(id: String): Maybe<HotelResponse.HotelEntity> {
-        val item = map[id]
-        return if (item != null) {
-            Maybe.just(item)
-        } else {
-            Maybe.empty()
-        }
+    override fun prefetch(): Completable {
+        return Completable.complete()
     }
 }

@@ -25,26 +25,26 @@ import io.reactivex.Maybe
 interface Cache {
 
     interface Airline {
-        fun cache(list: List<AirlineResponse.AirlineEntity>)
+        fun put(list: List<AirlineResponse.AirlineEntity>)
 
-        fun getCached(id: String): Maybe<AirlineResponse.AirlineEntity>
+        fun get(id: String): Maybe<AirlineResponse.AirlineEntity>
     }
 
     interface Airport {
-        fun cache(list: List<AirportResponse.AirportEntity>)
+        fun put(list: List<AirportResponse.AirportEntity>)
 
-        fun getCached(id: String): Maybe<AirportResponse.AirportEntity>
+        fun get(id: String): Maybe<AirportResponse.AirportEntity>
     }
 
     interface Currency {
-        fun cache(list: List<CurrencyResponse.CurrencyEntity>)
+        fun put(list: List<CurrencyResponse.CurrencyEntity>)
 
-        fun getCached(id: String): Maybe<CurrencyResponse.CurrencyEntity>
+        fun get(id: String): Maybe<CurrencyResponse.CurrencyEntity>
     }
 
     interface Hotel {
-        fun cache(list: List<HotelResponse.HotelEntity>)
+        fun put(list: List<HotelResponse.HotelEntity>)
 
-        fun getCached(id: String): Maybe<HotelResponse.HotelEntity>
+        fun get(id: String): Maybe<HotelResponse.HotelEntity>
     }
 }

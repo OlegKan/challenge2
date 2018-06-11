@@ -19,11 +19,16 @@ package com.simplaapliko.challenge2.data.repository
 import com.simplaapliko.challenge2.data.datasource.AirlineDataSource
 import com.simplaapliko.challenge2.domain.model.Airline
 import com.simplaapliko.challenge2.domain.repository.AirlineRepository
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 class AirlineDataRepository(private val dataSource: AirlineDataSource) : AirlineRepository {
 
     override fun get(id: String): Maybe<Airline> {
         return dataSource.get(id).map {t -> t.toAirline()}
+    }
+
+    override fun prefetch(): Completable {
+        return dataSource.prefetch()
     }
 }

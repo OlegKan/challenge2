@@ -17,9 +17,12 @@
 package com.simplaapliko.challenge2.data.datasource
 
 import com.simplaapliko.challenge2.data.datasource.response.AirlineResponse
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 interface AirlineDataSource {
 
     fun get(id: String): Maybe<AirlineResponse.AirlineEntity>
+
+    fun prefetch(): Completable
 }

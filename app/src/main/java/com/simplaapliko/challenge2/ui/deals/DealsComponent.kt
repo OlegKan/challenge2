@@ -18,6 +18,7 @@ package com.simplaapliko.challenge2.ui.deals
 
 import com.simplaapliko.challenge2.di.ActivityScope
 import com.simplaapliko.challenge2.domain.repository.DealRepository
+import com.simplaapliko.challenge2.domain.usecase.PrefetchUseCase
 import com.simplaapliko.challenge2.rx.RxSchedulers
 import dagger.Provides
 import dagger.Subcomponent
@@ -41,8 +42,9 @@ interface DealsComponent {
         @ActivityScope
         internal fun provideOverviewPresenter(rxSchedulers: RxSchedulers,
             repository: DealRepository, view: DealsContract.View,
-            navigator: DealsContract.Navigator): DealsContract.Presenter {
-            return DealsPresenter(rxSchedulers, repository, view, navigator)
+            navigator: DealsContract.Navigator, prefetchUseCase: PrefetchUseCase):
+                DealsContract.Presenter {
+            return DealsPresenter(rxSchedulers, repository, view, navigator, prefetchUseCase)
         }
 
         @Provides

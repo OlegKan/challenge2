@@ -18,6 +18,7 @@ package com.simplaapliko.challenge2.ui.deals
 
 import com.simplaapliko.challenge2.domain.model.Deal
 import com.simplaapliko.challenge2.domain.repository.DealRepository
+import com.simplaapliko.challenge2.domain.usecase.PrefetchUseCase
 import com.simplaapliko.challenge2.rx.RxSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -25,19 +26,26 @@ import java.util.concurrent.TimeUnit
 
 class DealsPresenter internal constructor(private val rxSchedulers: RxSchedulers,
     private val repository: DealRepository, private val view: DealsContract.View,
-    private val navigator: DealsContract.Navigator) : DealsContract.Presenter {
+    private val navigator: DealsContract.Navigator, private val prefetchUseCase: PrefetchUseCase) :
+    DealsContract.Presenter {
 
     private val disposables = CompositeDisposable()
     private var getAllDealsDisposable: Disposable? = null
 
     override fun init() {
+        view.showProgress()
+
         bindView()
 
-        refreshData()
+        val disposable = prefetchUseCase.prefech()
+            .compose(rxSchedulers.getIoToMainTransformerCompletable())
+            .subscribe({refreshData()}, { t -> this.handleGetAllDealsError(t) })
+        disposables.add(disposable)
     }
 
     private fun refreshData() {
         view.showProgress()
+
         if (getAllDealsDisposable != null && !getAllDealsDisposable!!.isDisposed) {
             getAllDealsDisposable!!.dispose()
             disposables.delete(getAllDealsDisposable!!)

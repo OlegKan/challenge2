@@ -17,6 +17,11 @@
 package com.simplaapliko.challenge2.di
 
 import com.simplaapliko.challenge2.BuildConfig
+import com.simplaapliko.challenge2.domain.repository.AirlineRepository
+import com.simplaapliko.challenge2.domain.repository.AirportRepository
+import com.simplaapliko.challenge2.domain.repository.CurrencyRepository
+import com.simplaapliko.challenge2.domain.repository.HotelRepository
+import com.simplaapliko.challenge2.domain.usecase.PrefetchUseCase
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -36,6 +41,17 @@ class NetworkModule {
             logging.level = HttpLoggingInterceptor.Level.NONE
         }
 
-        return OkHttpClient.Builder().addInterceptor(logging).build()
+        return OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+    }
+
+    @Provides
+    @ApplicationScope
+    fun providePrefetchUseCase(airlineRepository: AirlineRepository,
+        airportRepository: AirportRepository, currencyRepository: CurrencyRepository,
+        hotelRepository: HotelRepository): PrefetchUseCase {
+        return PrefetchUseCase(airlineRepository, airportRepository, currencyRepository,
+            hotelRepository)
     }
 }

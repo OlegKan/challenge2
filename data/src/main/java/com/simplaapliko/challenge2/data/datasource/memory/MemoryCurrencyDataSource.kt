@@ -18,6 +18,7 @@ package com.simplaapliko.challenge2.data.datasource.memory
 
 import com.simplaapliko.challenge2.data.datasource.CurrencyDataSource
 import com.simplaapliko.challenge2.data.datasource.response.CurrencyResponse
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 class MemoryCurrencyDataSource : CurrencyDataSource, Cache.Currency {
@@ -33,18 +34,13 @@ class MemoryCurrencyDataSource : CurrencyDataSource, Cache.Currency {
         }
     }
 
-    override fun cache(list: List<CurrencyResponse.CurrencyEntity>) {
+    override fun put(list: List<CurrencyResponse.CurrencyEntity>) {
         for (item in list) {
             map[item.id] = item
         }
     }
 
-    override fun getCached(id: String): Maybe<CurrencyResponse.CurrencyEntity> {
-        val item = map[id]
-        return if (item != null) {
-            Maybe.just(item)
-        } else {
-            Maybe.empty()
-        }
+    override fun prefetch(): Completable {
+        return Completable.complete()
     }
 }

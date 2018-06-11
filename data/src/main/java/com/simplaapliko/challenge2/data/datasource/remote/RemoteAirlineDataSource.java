@@ -24,6 +24,7 @@ import com.simplaapliko.challenge2.data.datasource.response.AirlineResponse;
 
 import org.jetbrains.annotations.NotNull;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import okhttp3.OkHttpClient;
 
@@ -42,22 +43,22 @@ public class RemoteAirlineDataSource implements AirlineDataSource {
     @NotNull
     @Override
     public Maybe<AirlineResponse.AirlineEntity> get(@NotNull String id) {
-        return cache.getCached(id)
-                .onErrorResumeNext(GetAirlinesSingle.create(okHttpClient, gson)
-                        .doOnSuccess(cache::cache)
+        return Maybe.concat(
+                cache.get(id),
+                GetAirlinesSingle.create(okHttpClient, gson)
+                        .doOnSuccess(cache::put)
                         .toObservable()
                         .flatMapIterable(t -> t)
                         .filter(entity -> id.equals(entity.id))
-                        .singleElement());
+                        .singleElement())
+                .firstElement();
+    }
 
-//        return Maybe.concat(
-//                cache.getCached(id),
-//                GetAirlinesSingle.create(okHttpClient, gson)
-//                        .doOnSuccess(cache::cache)
-//                        .toObservable()
-//                        .flatMapIterable(t -> t)
-//                        .filter(entity -> id.equals(entity.id))
-//                        .singleElement())
-//                .firstElement();
+    @NotNull
+    @Override
+    public Completable prefetch() {
+        return GetAirlinesSingle.create(okHttpClient, gson)
+                .doOnSuccess(cache::put)
+                .ignoreElement();
     }
 }

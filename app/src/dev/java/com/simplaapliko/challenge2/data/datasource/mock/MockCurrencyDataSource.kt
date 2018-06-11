@@ -22,6 +22,7 @@ import com.simplaapliko.challenge2.R
 import com.simplaapliko.challenge2.data.datasource.CurrencyDataSource
 import com.simplaapliko.challenge2.data.datasource.response.CurrencyResponse
 import com.simplaapliko.challenge2.di.Utils
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 class MockCurrencyDataSource(context: Context, gson: Gson) : CurrencyDataSource {
@@ -46,5 +47,9 @@ class MockCurrencyDataSource(context: Context, gson: Gson) : CurrencyDataSource 
         } else {
             Maybe.empty()
         }
+    }
+
+    override fun prefetch(): Completable {
+        return Completable.complete()
     }
 }

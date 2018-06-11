@@ -17,9 +17,12 @@
 package com.simplaapliko.challenge2.domain.repository
 
 import com.simplaapliko.challenge2.domain.model.Hotel
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 interface HotelRepository {
 
     fun get(id: String): Maybe<Hotel>
+
+    fun prefetch(): Completable
 }

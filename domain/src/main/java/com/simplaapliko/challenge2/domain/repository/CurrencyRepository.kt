@@ -17,9 +17,12 @@
 package com.simplaapliko.challenge2.domain.repository
 
 import com.simplaapliko.challenge2.domain.model.Currency
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 interface CurrencyRepository {
 
     fun get(id: String): Maybe<Currency>
+
+    fun prefetch(): Completable
 }

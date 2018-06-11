@@ -17,9 +17,12 @@
 package com.simplaapliko.challenge2.data.datasource
 
 import com.simplaapliko.challenge2.data.datasource.response.HotelResponse
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 interface HotelDataSource {
 
     fun get(id: String): Maybe<HotelResponse.HotelEntity>
+
+    fun prefetch(): Completable
 }

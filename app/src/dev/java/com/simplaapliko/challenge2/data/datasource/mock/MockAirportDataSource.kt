@@ -22,6 +22,7 @@ import com.simplaapliko.challenge2.R
 import com.simplaapliko.challenge2.data.datasource.AirportDataSource
 import com.simplaapliko.challenge2.data.datasource.response.AirportResponse
 import com.simplaapliko.challenge2.di.Utils
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 class MockAirportDataSource(context: Context, gson: Gson) : AirportDataSource {
@@ -54,5 +55,9 @@ class MockAirportDataSource(context: Context, gson: Gson) : AirportDataSource {
         } else {
             Maybe.empty()
         }
+    }
+
+    override fun prefetch(): Completable {
+        return Completable.complete()
     }
 }

@@ -18,6 +18,7 @@ package com.simplaapliko.challenge2.data.datasource.memory
 
 import com.simplaapliko.challenge2.data.datasource.AirportDataSource
 import com.simplaapliko.challenge2.data.datasource.response.AirportResponse
+import io.reactivex.Completable
 import io.reactivex.Maybe
 
 class MemoryAirportDataSource : AirportDataSource, Cache.Airport {
@@ -33,18 +34,13 @@ class MemoryAirportDataSource : AirportDataSource, Cache.Airport {
         }
     }
 
-    override fun cache(list: List<AirportResponse.AirportEntity>) {
+    override fun put(list: List<AirportResponse.AirportEntity>) {
         for (item in list) {
             map[item.id] = item
         }
     }
 
-    override fun getCached(id: String): Maybe<AirportResponse.AirportEntity> {
-        val item = map[id]
-        return if (item != null) {
-            Maybe.just(item)
-        } else {
-            Maybe.empty()
-        }
+    override fun prefetch(): Completable {
+        return Completable.complete()
     }
 }
