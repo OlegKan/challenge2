@@ -16,6 +16,7 @@
 
 package com.simplaapliko.challenge2.ui.deals
 
+import com.simplaapliko.challenge2.domain.model.Currency
 import com.simplaapliko.challenge2.domain.model.Deal
 import io.reactivex.Observable
 
@@ -40,8 +41,14 @@ interface DealsContract {
 
         fun displayDeals(items: List<Deal>)
 
+        fun displayCurrencies(items: List<Currency>)
+
+        fun setSelectedCurrency(): Currency
+
         fun showMessage(message: String)
 
         fun onDealClick(): Observable<Deal>
+
+        fun onCurrencyChange(): Observable<Currency>
     }
 }

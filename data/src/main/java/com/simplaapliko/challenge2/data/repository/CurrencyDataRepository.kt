@@ -21,11 +21,20 @@ import com.simplaapliko.challenge2.domain.model.Currency
 import com.simplaapliko.challenge2.domain.repository.CurrencyRepository
 import io.reactivex.Completable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 class CurrencyDataRepository(private val dataSource: CurrencyDataSource) : CurrencyRepository {
 
     override fun get(id: String): Maybe<Currency> {
         return dataSource.get(id).map { t -> t.toCurrency() }
+    }
+
+    override fun getAll(): Single<List<Currency>> {
+        return dataSource.getAll()
+            .toObservable()
+            .flatMapIterable { t -> t }
+            .map { t -> t.toCurrency() }
+            .toList()
     }
 
     override fun prefetch(): Completable {

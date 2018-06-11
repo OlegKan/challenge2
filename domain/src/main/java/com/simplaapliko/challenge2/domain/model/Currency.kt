@@ -19,4 +19,9 @@ package com.simplaapliko.challenge2.domain.model
 import java.io.Serializable
 
 data class Currency(val id: String, val name: String, val symbol: String, val exchange: Double) :
-    Serializable
+    Serializable {
+
+    override fun toString(): String {
+        return id
+    }
+}

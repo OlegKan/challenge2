@@ -22,12 +22,16 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.simplaapliko.challenge2.R
 import com.simplaapliko.challenge2.di.ApplicationComponent
+import com.simplaapliko.challenge2.domain.model.Currency
 import com.simplaapliko.challenge2.domain.model.Deal
 import com.simplaapliko.challenge2.ui.base.BaseActivity
 import com.simplaapliko.challenge2.ui.deals.adapter.DealAdapter
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_deals.*
 import javax.inject.Inject
 
@@ -41,6 +45,8 @@ class DealsActivity : BaseActivity(), DealsContract.View {
 
     @Inject
     lateinit var presenter: DealsContract.Presenter
+
+    private val currencySubject = PublishSubject.create<Currency>()
 
     private lateinit var adapter: DealAdapter
 
@@ -59,6 +65,16 @@ class DealsActivity : BaseActivity(), DealsContract.View {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.adapter = adapter
+
+        currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int,
+                id: Long) {
+                currencySubject.onNext(currency.selectedItem as Currency)
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -86,10 +102,24 @@ class DealsActivity : BaseActivity(), DealsContract.View {
         adapter.notifyDataSetChanged();
     }
 
+    override fun displayCurrencies(items: List<Currency>) {
+        val currencyAdapter = ArrayAdapter<Currency>(this,
+            R.layout.spinner_dropdown_item, items)
+        currency.adapter = currencyAdapter
+    }
+
+    override fun setSelectedCurrency(): Currency {
+        return currency.selectedItem as Currency
+    }
+
     override fun showMessage(message: String) {
     }
 
     override fun onDealClick(): Observable<Deal> {
         return adapter.clickObservable;
+    }
+
+    override fun onCurrencyChange(): Observable<Currency> {
+        return currencySubject
     }
 }

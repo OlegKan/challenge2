@@ -14,22 +14,16 @@
  * limitations under the License.
  */
 
-package com.simplaapliko.challenge2.domain.model
+package com.simplaapliko.challenge2.domain.utils
 
-import java.io.Serializable
-import java.util.*
+import com.simplaapliko.challenge2.domain.model.Currency
 
-data class Deal(
-    var price: Double,
-    var currency: Currency,
-    val outboundAirlineId: String,
-    val outboundStartAirportId: String,
-    val outboundStartDate: Date,
-    val outboundEndAirportId: String,
-    val outboundEndDate: Date,
-    val inboundAirlineId: String,
-    val inboundStartAirportId: String,
-    val inboundStartDate: Date,
-    val inboundEndAirportId: String,
-    val inboundEndDate: Date,
-    val lodging: Lodging) : Serializable
+
+class CurrencyUtils {
+
+    companion object {
+        fun calculatePrice(price: Double, from: Currency, to: Currency): Double {
+            return price / (from.exchange / to.exchange)
+        }
+    }
+}

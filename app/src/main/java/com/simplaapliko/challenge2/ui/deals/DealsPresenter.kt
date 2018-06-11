@@ -16,9 +16,12 @@
 
 package com.simplaapliko.challenge2.ui.deals
 
+import com.simplaapliko.challenge2.domain.model.Currency
 import com.simplaapliko.challenge2.domain.model.Deal
+import com.simplaapliko.challenge2.domain.repository.CurrencyRepository
 import com.simplaapliko.challenge2.domain.repository.DealRepository
 import com.simplaapliko.challenge2.domain.usecase.PrefetchUseCase
+import com.simplaapliko.challenge2.domain.utils.CurrencyUtils
 import com.simplaapliko.challenge2.rx.RxSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -26,8 +29,8 @@ import java.util.concurrent.TimeUnit
 
 class DealsPresenter internal constructor(private val rxSchedulers: RxSchedulers,
     private val repository: DealRepository, private val view: DealsContract.View,
-    private val navigator: DealsContract.Navigator, private val prefetchUseCase: PrefetchUseCase) :
-    DealsContract.Presenter {
+    private val navigator: DealsContract.Navigator, private val prefetchUseCase: PrefetchUseCase,
+    private val currencyRepository: CurrencyRepository) : DealsContract.Presenter {
 
     private val disposables = CompositeDisposable()
     private var getAllDealsDisposable: Disposable? = null
@@ -39,11 +42,24 @@ class DealsPresenter internal constructor(private val rxSchedulers: RxSchedulers
 
         val disposable = prefetchUseCase.prefech()
             .compose(rxSchedulers.getIoToMainTransformerCompletable())
-            .subscribe({refreshData()}, { t -> this.handleGetAllDealsError(t) })
+            .subscribe({ refreshData() }, { t -> this.handleGenericError(t) })
         disposables.add(disposable)
     }
 
     private fun refreshData() {
+        val disposable = currencyRepository.getAll()
+            .compose(rxSchedulers.getComputationToMainTransformerSingle())
+            .subscribe({ t -> handleGetAllCurrenciesSuccess(t) },
+                { t -> this.handleGenericError(t) })
+        disposables.add(disposable)
+    }
+
+    private fun handleGetAllCurrenciesSuccess(data: List<Currency>) {
+        view.displayCurrencies(data)
+        recalculatePrices(data[0])
+    }
+
+    private fun recalculatePrices(currency: Currency) {
         view.showProgress()
 
         if (getAllDealsDisposable != null && !getAllDealsDisposable!!.isDisposed) {
@@ -52,8 +68,16 @@ class DealsPresenter internal constructor(private val rxSchedulers: RxSchedulers
         }
         getAllDealsDisposable = repository.getAll()
             .compose(rxSchedulers.getComputationToMainTransformerSingle())
+            .toObservable()
+            .flatMapIterable { t -> t }
+            .map {
+                it.price = CurrencyUtils.calculatePrice(it.price, it.currency, currency)
+                it.currency = currency
+                return@map it
+            }
+            .toList()
             .subscribe({ t -> this.handleGetAllDealsSuccess(t) },
-                { t -> this.handleGetAllDealsError(t) })
+                { t -> this.handleGenericError(t) })
         disposables.add(getAllDealsDisposable!!)
     }
 
@@ -62,21 +86,31 @@ class DealsPresenter internal constructor(private val rxSchedulers: RxSchedulers
         view.displayDeals(data)
     }
 
-    private fun handleGetAllDealsError(throwable: Throwable) {
+    private fun handleGenericError(throwable: Throwable) {
         view.hideProgress()
         view.showMessage(throwable.localizedMessage)
     }
 
     private fun bindView() {
-        val showProfile = view.onDealClick()
+        val dealClick = view.onDealClick()
             .observeOn(rxSchedulers.getMainThreadScheduler())
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe({ t -> handleDealClickAction(t) }, { t -> handleUnknownError(t) })
-        disposables.add(showProfile)
+        disposables.add(dealClick)
+
+        val currencyChange = view.onCurrencyChange()
+            .observeOn(rxSchedulers.getMainThreadScheduler())
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe({ t -> handleCurrencyChangeAction(t) }, { t -> handleUnknownError(t) })
+        disposables.add(currencyChange)
     }
 
     private fun handleDealClickAction(deal: Deal) {
         navigator.goToDealScreen(deal)
+    }
+
+    private fun handleCurrencyChangeAction(currency: Currency) {
+        recalculatePrices(currency)
     }
 
     private fun handleUnknownError(throwable: Throwable) {

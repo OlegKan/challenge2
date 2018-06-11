@@ -19,10 +19,13 @@ package com.simplaapliko.challenge2.data.datasource
 import com.simplaapliko.challenge2.data.datasource.response.CurrencyResponse
 import io.reactivex.Completable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 interface CurrencyDataSource {
 
     fun get(id: String): Maybe<CurrencyResponse.CurrencyEntity>
+
+    fun getAll(): Single<List<CurrencyResponse.CurrencyEntity>>
 
     fun prefetch(): Completable
 }

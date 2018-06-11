@@ -20,6 +20,7 @@ import com.simplaapliko.challenge2.data.datasource.CurrencyDataSource
 import com.simplaapliko.challenge2.data.datasource.response.CurrencyResponse
 import io.reactivex.Completable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 class MemoryCurrencyDataSource : CurrencyDataSource, Cache.Currency {
 
@@ -38,6 +39,10 @@ class MemoryCurrencyDataSource : CurrencyDataSource, Cache.Currency {
         for (item in list) {
             map[item.id] = item
         }
+    }
+
+    override fun getAll(): Single<List<CurrencyResponse.CurrencyEntity>> {
+        return Single.just(map.values.toList())
     }
 
     override fun prefetch(): Completable {
