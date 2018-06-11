@@ -19,6 +19,7 @@ package com.simplaapliko.challenge2.data.datasource.memory
 import com.simplaapliko.challenge2.data.datasource.response.AirlineResponse
 import com.simplaapliko.challenge2.data.datasource.response.AirportResponse
 import com.simplaapliko.challenge2.data.datasource.response.CurrencyResponse
+import com.simplaapliko.challenge2.data.datasource.response.DealResponse
 import com.simplaapliko.challenge2.data.datasource.response.HotelResponse
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -43,6 +44,12 @@ interface Cache {
         fun get(id: String): Maybe<CurrencyResponse.CurrencyEntity>
 
         fun getAll(): Single<List<CurrencyResponse.CurrencyEntity>>
+    }
+
+    interface Deal {
+        fun put(list: List<DealResponse>)
+
+        fun get(): Single<List<DealResponse>>
     }
 
     interface Hotel {

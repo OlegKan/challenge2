@@ -26,6 +26,7 @@ import com.simplaapliko.challenge2.data.datasource.memory.Cache
 import com.simplaapliko.challenge2.data.datasource.memory.MemoryAirlineDataSource
 import com.simplaapliko.challenge2.data.datasource.memory.MemoryAirportDataSource
 import com.simplaapliko.challenge2.data.datasource.memory.MemoryCurrencyDataSource
+import com.simplaapliko.challenge2.data.datasource.memory.MemoryDealDataSource
 import com.simplaapliko.challenge2.data.datasource.memory.MemoryHotelDataSource
 import com.simplaapliko.challenge2.data.datasource.remote.RemoteAirlineDataSource
 import com.simplaapliko.challenge2.data.datasource.remote.RemoteAirportDataSource
@@ -69,6 +70,12 @@ class DataModule {
 
     @Provides
     @ApplicationScope
+    fun provideDealCache(): Cache.Deal {
+        return MemoryDealDataSource()
+    }
+
+    @Provides
+    @ApplicationScope
     fun provideHotelCache(): Cache.Hotel {
         return MemoryHotelDataSource()
     }
@@ -96,8 +103,9 @@ class DataModule {
 
     @Provides
     @ApplicationScope
-    fun provideDealDataSource(okHttpClient: OkHttpClient, gson: Gson): DealDataSource {
-        return RemoteDealDataSource(okHttpClient, gson)
+    fun provideDealDataSource(okHttpClient: OkHttpClient, gson: Gson,
+        cache: Cache.Deal): DealDataSource {
+        return RemoteDealDataSource(okHttpClient, gson, cache)
     }
 
     @Provides

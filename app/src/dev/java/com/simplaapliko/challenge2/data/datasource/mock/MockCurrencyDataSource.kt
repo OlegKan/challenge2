@@ -24,6 +24,7 @@ import com.simplaapliko.challenge2.data.datasource.response.CurrencyResponse
 import com.simplaapliko.challenge2.di.Utils
 import io.reactivex.Completable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 class MockCurrencyDataSource(context: Context, gson: Gson) : CurrencyDataSource {
 
@@ -47,6 +48,10 @@ class MockCurrencyDataSource(context: Context, gson: Gson) : CurrencyDataSource 
         } else {
             Maybe.empty()
         }
+    }
+
+    override fun getAll(): Single<List<CurrencyResponse.CurrencyEntity>> {
+        return Single.just(map.values.toList())
     }
 
     override fun prefetch(): Completable {

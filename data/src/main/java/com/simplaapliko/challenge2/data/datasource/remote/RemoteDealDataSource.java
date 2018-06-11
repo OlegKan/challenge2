@@ -18,6 +18,7 @@ package com.simplaapliko.challenge2.data.datasource.remote;
 
 import com.google.gson.Gson;
 import com.simplaapliko.challenge2.data.datasource.DealDataSource;
+import com.simplaapliko.challenge2.data.datasource.memory.Cache;
 import com.simplaapliko.challenge2.data.datasource.remote.rx.GetDealsSingle;
 import com.simplaapliko.challenge2.data.datasource.response.DealResponse;
 
@@ -32,15 +33,19 @@ public class RemoteDealDataSource implements DealDataSource {
 
     private final OkHttpClient okHttpClient;
     private final Gson gson;
+    private final Cache.Deal cache;
 
-    public RemoteDealDataSource(OkHttpClient okHttpClient, Gson gson) {
+    public RemoteDealDataSource(OkHttpClient okHttpClient, Gson gson, Cache.Deal cache) {
         this.okHttpClient = okHttpClient;
         this.gson = gson;
+        this.cache = cache;
     }
 
     @NotNull
     @Override
     public Single<List<DealResponse>> getAll() {
-        return GetDealsSingle.create(okHttpClient, gson);
+        return cache.get()
+                .onErrorResumeNext(GetDealsSingle.create(okHttpClient, gson)
+                        .doOnSuccess(cache::put));
     }
 }
