@@ -2,31 +2,31 @@
     "aa": {
         "_id": "aa",
         "name": "American",
-        "image_url": "https://github.com/OlegKan/challenge2/blob/master/assets/image/airlines/aa.png"
+        "image_url": "https://raw.githubusercontent.com/OlegKan/challenge2/master/assets/image/airlines/aa.png"
     },
     "ua": {
         "_id": "ua",
         "name": "United",
-        "image_url": "https://github.com/OlegKan/challenge2/blob/master/assets/image/airlines/ua.png"
+        "image_url": "https://raw.githubusercontent.com/OlegKan/challenge2/master/assets/image/airlines/ua.png"
     },
     "b6": {
         "_id": "b6",
         "name": "Jet Blue",
-        "image_url": "https://github.com/OlegKan/challenge2/blob/master/assets/image/airlines/b6.png"
+        "image_url": "https://raw.githubusercontent.com/OlegKan/challenge2/master/assets/image/airlines/b6.png"
     },
     "vx": {
         "_id": "vx",
         "name": "Virgin America",
-        "image_url": "https://github.com/OlegKan/challenge2/blob/master/assets/image/airlines/vx.png"
+        "image_url": "https://raw.githubusercontent.com/OlegKan/challenge2/master/assets/image/airlines/vx.png"
     },
     "dl": {
         "_id": "dl",
         "name": "Delta",
-        "image_url": "https://github.com/OlegKan/challenge2/blob/master/assets/image/airlines/dl.png"
+        "image_url": "https://raw.githubusercontent.com/OlegKan/challenge2/master/assets/image/airlines/dl.png"
     },
     "as": {
         "_id": "as",
         "name": "Alaska",
-        "image_url": "https://github.com/OlegKan/challenge2/blob/master/assets/image/airlines/as.png"
+        "image_url": "https://raw.githubusercontent.com/OlegKan/challenge2/master/assets/image/airlines/as.png"
     }
 }

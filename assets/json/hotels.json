@@ -3,18 +3,18 @@
         "_id": "marriott",
         "name": "Marriott",
         "rating": 4,
-        "image_url": "https://github.com/OlegKan/challenge2/blob/master/assets/image/hotels/marriott.png"
+        "image_url": "https://raw.githubusercontent.com/OlegKan/challenge2/master/assets/image/hotels/marriott.png"
     },
     "novotel": {
         "_id": "novotel",
         "name": "Novotel",
         "rating": 3,
-        "image_url": "https://github.com/OlegKan/challenge2/blob/master/assets/image/hotels/novotel.png"
+        "image_url": "https://raw.githubusercontent.com/OlegKan/challenge2/master/assets/image/hotels/novotel.png"
     },
     "hyatt": {
         "_id": "hyatt",
         "name": "Hyatt",
         "rating": 3.5,
-        "image_url": "https://github.com/OlegKan/challenge2/blob/master/assets/image/hotels/hyatt.png"
+        "image_url": "https://raw.githubusercontent.com/OlegKan/challenge2/master/assets/image/hotels/hyatt.png"
     }
 }
